@@ -1,0 +1,13 @@
+#切片大小
+CHUNK_SIZE=500
+
+# 切片最大重叠
+OVERLAP=100
+
+# 数据库配置
+DATA_BASE_USER_NAME = 'rag'
+DATA_BASE_PASSWORD = 'rag'
+DATA_BASE_NAME='rag'
+DATABASE_URL='localhost:5433/'
+
+
