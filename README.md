@@ -10,3 +10,9 @@
         - 测试数据库连接
 
         - 测试FastApi的运行
+
+        - 先跑同RAG
+            - 这次使用langChain编排RAG
+            - pdf文件
+            - md文件
+            
