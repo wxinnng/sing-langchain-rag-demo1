@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 
 from dotenv import load_dotenv
-from openai import OpenAI
+from langchain.chat_models import init_chat_model
 import psycopg
 from pgvector.psycopg import register_vector
 from langchain_openai import OpenAIEmbeddings
@@ -45,9 +45,12 @@ embeddings = OpenAIEmbeddings(
 
 
 # 问答大模型
-chat_client = OpenAI(
+llm = init_chat_model(
     api_key= OPENAI_API_KEY,
-    base_url=BASE_URL
+    base_url=BASE_URL,
+    model=CHAT_MODEL,
+    temperature=30,
+    timeout=30
 )
 
 
