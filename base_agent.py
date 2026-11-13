@@ -28,7 +28,7 @@ class AIResponse(BaseModel):
 
     question: str = Field(description="用户的问题")
     answer: str = Field(description="回答的内容")
-    time: str = Field(description="回答的时间")
+    time: str = Field(description="回答的具体的时间")
     is_included: str = Field(description="知识库里面是否包含相关的内容")
 
 
