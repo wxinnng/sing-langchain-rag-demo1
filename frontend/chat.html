@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RAG Lab | 智能问答</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <div class="app-shell"><aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">R</span><span>RAG Lab</span></a><p class="nav-label">工作台</p><nav><a class="nav-link" href="index.html"><span>⌂</span>概览</a><a class="nav-link active" href="chat.html"><span>✦</span>智能问答</a><a class="nav-link" href="docs.html"><span>▤</span>接口说明</a></nav><div class="sidebar-foot"><span class="status-dot"></span><span>本地 API</span><code id="apiHost">localhost:8000</code></div></aside>
+    <main class="main-content chat-page"><header class="topbar"><div><p class="eyebrow">KNOWLEDGE WORKSPACE / ASK</p><h1>智能问答</h1></div><span class="live-label"><span class="status-dot"></span>实时连接</span></header>
+      <div class="chat-layout"><section class="chat-panel"><div class="chat-intro"><span class="large-icon">✦</span><div><h2>向知识库提问</h2><p>助手只会依据已检索到的知识内容回答。</p></div></div><div class="messages" id="messages"><div class="empty-message"><span>✧</span><p>输入你的第一个问题</p><small>例如：请给我介绍一下青岛</small></div></div><form class="question-form" id="questionForm"><textarea id="questionInput" rows="2" placeholder="输入问题，按 Ctrl / ⌘ + Enter 发送..." maxlength="1000" required></textarea><div class="form-bottom"><span id="charCount">0 / 1000</span><button class="button button-dark" type="submit" id="submitButton">发送问题 <span>↑</span></button></div></form></section>
+        <aside class="chat-aside"><div class="aside-block"><p class="eyebrow">当前配置</p><dl><div><dt>接口</dt><dd><code>POST /v1</code></dd></div><div><dt>检索策略</dt><dd>向量相似度</dd></div><div><dt>知识库</dt><dd>lc_documents</dd></div></dl></div><div class="aside-block tips"><p class="eyebrow">提问建议</p><p>使用具体、完整的问题，回答会更容易命中相关文档。</p><div class="suggestion" data-question="请介绍一下青岛">请介绍一下青岛 <span>↗</span></div><div class="suggestion" data-question="什么是文档切片？">什么是文档切片？ <span>↗</span></div><div class="suggestion" data-question="向量数据库有什么作用？">向量数据库有什么作用？ <span>↗</span></div></div></aside>
+      </div><footer class="footer">回答结果会显示知识库命中状态与生成时间</footer>
+    </main>
+  </div><script src="app.js"></script><script>initChat();</script>
+</body></html>

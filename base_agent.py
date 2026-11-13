@@ -96,7 +96,7 @@ class My_Agent:
         response = self.agent.invoke(
             {'messages': [HumanMessage(content=question)]}
         )
-        print(type(response['structured_response']))
+
         return response['structured_response']
 
 

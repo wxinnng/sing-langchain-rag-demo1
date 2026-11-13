@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RAG Lab | 接口说明</title><link rel="stylesheet" href="styles.css"></head>
+<body><div class="app-shell"><aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">R</span><span>RAG Lab</span></a><p class="nav-label">工作台</p><nav><a class="nav-link" href="index.html"><span>⌂</span>概览</a><a class="nav-link" href="chat.html"><span>✦</span>智能问答</a><a class="nav-link active" href="docs.html"><span>▤</span>接口说明</a></nav><div class="sidebar-foot"><span class="status-dot"></span><span>本地 API</span><code id="apiHost">localhost:8000</code></div></aside>
+<main class="main-content"><header class="topbar"><div><p class="eyebrow">KNOWLEDGE WORKSPACE / API</p><h1>接口说明</h1></div><a class="button button-dark" href="chat.html">去测试接口 <span>→</span></a></header><section class="docs-content"><p class="lead">后端基于 FastAPI，默认运行在 <code>http://localhost:8000</code>。</p><div class="endpoint"><div class="endpoint-head"><span class="method post">POST</span><code>/v1</code><span class="endpoint-desc">向知识库提问</span></div><div class="code-block"><span class="code-label">请求体</span><pre>{
+  <span class="key">"question"</span>: <span class="string">"请给我介绍一下青岛"</span>
+}</pre></div><div class="code-block"><span class="code-label">返回结果</span><pre>{
+  <span class="key">"question"</span>: <span class="string">"请给我介绍一下青岛"</span>,
+  <span class="key">"answer"</span>: <span class="string">"..."</span>,
+  <span class="key">"time"</span>: <span class="string">"..."</span>,
+  <span class="key">"is_included"</span>: <span class="string">"是"</span>
+}</pre></div></div><div class="endpoint compact"><div class="endpoint-head"><span class="method get">GET</span><code>/</code><span class="endpoint-desc">服务探活，返回 hello world</span></div></div><div class="endpoint compact"><div class="endpoint-head"><span class="method get">GET</span><code>/v1/{query}</code><span class="endpoint-desc">回显路径中的 query 参数</span></div></div></section><footer class="footer">接口字段与 main.py 中的 AIResponse 保持一致</footer></main></div></body></html>

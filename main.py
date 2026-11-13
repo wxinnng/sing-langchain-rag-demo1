@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import Field,BaseModel
 from base_agent import My_Agent,AIResponse
 from common import llm
@@ -9,6 +10,15 @@ class RequestBody(BaseModel):
 
 
 app = FastAPI()
+
+# Allow the plain static frontend to call the API during local development.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5500", "http://127.0.0.1:5500"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 llm = llm
 

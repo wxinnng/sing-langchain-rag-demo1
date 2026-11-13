@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAG Lab | 首页</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><span class="brand-mark">R</span><span>RAG Lab</span></a>
+      <p class="nav-label">工作台</p>
+      <nav>
+        <a class="nav-link active" href="index.html"><span>⌂</span>概览</a>
+        <a class="nav-link" href="chat.html"><span>✦</span>智能问答</a>
+        <a class="nav-link" href="docs.html"><span>▤</span>接口说明</a>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span><span>本地 API</span><code id="apiHost">localhost:8000</code></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">KNOWLEDGE WORKSPACE</p><h1>欢迎回来</h1></div><a class="button button-dark" href="chat.html">开始提问 <span>→</span></a></header>
+      <section class="hero-panel"><div><p class="eyebrow light">检索增强生成</p><h2>让知识库<br><em>回答问题。</em></h2><p class="hero-copy">基于已有文档进行检索，再由智能助手生成严谨、可追溯的回答。</p><a class="button button-light" href="chat.html">打开问答工作台 <span>↗</span></a></div><div class="hero-orbit"><span class="orbit-ring ring-one"></span><span class="orbit-ring ring-two"></span><span class="orbit-core">RAG<br><small>READY</small></span></div></section>
+      <section class="section-heading"><div><p class="eyebrow">快速开始</p><h3>今天要做什么？</h3></div><span class="section-note">三个入口，覆盖常用操作</span></section>
+      <section class="quick-grid"><a class="quick-card accent" href="chat.html"><span class="card-icon">✦</span><h4>询问知识库</h4><p>提出一个问题，获取来自知识库的回答。</p><span class="card-arrow">→</span></a><a class="quick-card" href="docs.html"><span class="card-icon">⌘</span><h4>查看接口</h4><p>了解请求格式、返回字段和可用的测试接口。</p><span class="card-arrow">→</span></a><div class="quick-card"><span class="card-icon">◌</span><h4>服务状态</h4><p id="healthText">正在检查 API 服务状态...</p><span class="health-badge" id="healthBadge">检查中</span></div></section>
+      <footer class="footer">LangChain RAG Demo <span>·</span> 简单、专注、可验证</footer>
+    </main>
+  </div>
+  <script src="app.js"></script><script>checkHealth();</script>
+</body>
+</html>
