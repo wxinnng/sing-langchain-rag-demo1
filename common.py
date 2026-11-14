@@ -21,6 +21,29 @@ import asyncio
 
 # 加载配置文件
 load_dotenv()
+
+
+def _remove_invalid_all_proxy() -> None:
+    """让 httpx 使用显式 HTTP(S) 代理，避免无效 socks:// 抢占请求。"""
+    explicit_proxy = (
+        os.environ.get("HTTPS_PROXY")
+        or os.environ.get("https_proxy")
+        or os.environ.get("HTTP_PROXY")
+        or os.environ.get("http_proxy")
+    )
+    all_proxy = os.environ.get("ALL_PROXY") or os.environ.get("all_proxy")
+
+    if (
+        explicit_proxy
+        and all_proxy
+        and all_proxy.lower().startswith("socks://")
+    ):
+        os.environ.pop("ALL_PROXY", None)
+        os.environ.pop("all_proxy", None)
+
+
+_remove_invalid_all_proxy()
+
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
@@ -42,8 +65,31 @@ EMBEDDING_BASE_URL = os.environ.get('EMBEDDING_BASE_URL')
 
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
-if not OPENAI_API_KEY or not EMBEDDING_BASE_URL:
-    raise RuntimeError("请先在 .env 中设置 API_KEY(问答和嵌入)")
+required_settings = {
+    "OPENAI_API_KEY": OPENAI_API_KEY,
+    "EMBEDDING_OPENAI_API_KEY": EMBEDDING_OPENAI_API_KEY,
+    "BASE_URL": BASE_URL,
+    "EMBEDDING_BASE_URL": EMBEDDING_BASE_URL,
+}
+missing_settings = [name for name, value in required_settings.items() if not value]
+if missing_settings:
+    raise RuntimeError(
+        "请先在 .env 中设置: " + ", ".join(missing_settings)
+    )
+
+
+def _positive_float(name: str, default: float) -> float:
+    value = float(os.environ.get(name, default))
+    if value <= 0:
+        raise ValueError(f"{name} 必须大于 0")
+    return value
+
+
+CHAT_TIMEOUT = _positive_float("CHAT_TIMEOUT", 60)
+CHAT_TEMPERATURE = float(os.environ.get("CHAT_TEMPERATURE", "0"))
+CHAT_MAX_RETRIES = int(os.environ.get("CHAT_MAX_RETRIES", "2"))
+if CHAT_MAX_RETRIES < 0:
+    raise ValueError("CHAT_MAX_RETRIES 不能小于 0")
 
 #加载大模型实例(嵌入大模型)
 embeddings = OpenAIEmbeddings(
@@ -59,8 +105,9 @@ llm = init_chat_model(
     api_key= OPENAI_API_KEY,
     base_url=BASE_URL,
     model=CHAT_MODEL,
-    temperature=30,
-    timeout=30
+    temperature=CHAT_TEMPERATURE,
+    timeout=CHAT_TIMEOUT,
+    max_retries=CHAT_MAX_RETRIES,
 )
 
 
